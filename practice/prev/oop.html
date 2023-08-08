@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jquery To do List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <style>
+        body {
+            margin: 0;
+            background-color: lightblue;
+
+        }
+
+        #container {
+            box-sizing: border-box;
+            padding: 32px;
+        }
+
+        .item {
+            background-color: lightcoral;
+            margin: 0px 16px 16px 0px;
+            padding: 32px;
+            font-size: 24px;
+            text-align: center;
+            height: max-content;
+        }
+        #add-item {
+            height: 600px;
+
+        }
+
+        #add-item input {
+            height: 30px;
+            padding: 0px 3px;
+        }
+
+        #list {
+            display: flex;
+            flex-flow: row wrap;
+            column-gap: 5px;
+            height: 500px;
+            justify-content: flex-start;
+            margin-left: 20px;
+            align-items: stretch;
+            
+        }
+
+        .list-item {
+            background-color: white;
+            list-style-type: none;
+            margin-top: 10px;
+            width: 300px;
+            height: max-content;
+            max-width: 90%;
+            border-radius: 5px;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+            word-break: break-all;
+            text-overflow: ellipsis;
+            justify-content: center;
+            padding: 0px 16px;
+            align-self: stretch;
+        }
+
+        #input-text {
+            height: 30px;
+            width: 400px;
+
+        }
+
+        button[id*='btn'] {
+            margin: 10px 10px;
+            background-color: rgb(252, 142, 108);
+            font-size: large;
+            word-break: keep-all;
+            align-self: center;
+            width: 100%;
+        }
+
+        #fix-head {
+            background-color: rgb(20, 26, 24);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #fix-head>* {
+            padding-top: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div class="item">To do list using <em>Jquery</em></div>
+        <section id="add-item">
+            <div id="fix-head">
+                <input type="text" id="input-text" placeholder="Enter the task" />
+                <div>
+                    <input id="btn-add" type="submit" value="Add item" />
+                    <input id="btn-update" type="submit" value="Update First item" />
+                    <input id="btn-remove" type="submit" value="Remove First item" />
+                    <input id="btn-delete-all" type="submit" value="Delete All items" />
+                </div>
+            </div>
+            <div id="list-container">
+                <ul id="list">
+
+                </ul>
+            </div>
+        </section>
+    </div>
+    <script>
+        $(document).ready(function () {
+
+            //calling a http get request to fill the to do list
+            function getToDoList() {
+                var http = new XMLHttpRequest();
+                http.onreadystatechange = function () {
+                    if (this.readyState === 4) {
+                        console.log('response received');
+                        if (this.status === 200) {
+                            var response = JSON.parse(this.responseText);
+                            for (i = 0; i < response.length; i++) {
+                                dynamicToDo(response[i].id, response[i].title);
+                                console.log('hi')
+                            }
+                            console.log(response);
+                        } else {
+                            console.log('error');
+                        }
+                    }
+                }
+                http.open('GET', 'https://jsonplaceholder.typicode.com/todos', true);
+                http.send();
+            }
+            getToDoList();
+
+            //create to do dynamically using http request
+            function dynamicToDo(id, title) {
+                this.title = title;
+                this.id = id;
+                if (title == "") {
+                    alert("enter a valid item");
+                } else {
+                    var newListElement = $("<li>");
+                    newListElement.addClass("list-item");
+                    console.log(this.title)
+                    newListElement.append(document.createTextNode(this.title));
+                    list.append(newListElement);
+                    var delBtn = $("<button>");
+                    delBtn.attr('id', "btn-" + this.id);
+                    delBtn.addClass('del-btn');
+                    var delIcon = $('<i>');
+                    delIcon.addClass('fa fa-trash');
+                    delBtn.append(delIcon);
+                    list.first().append(delBtn);
+                    newListElement.append(delBtn)
+                    text.val('');
+                    count = count + 1;
+
+                    //delete single item
+                    var delBtn = $('.del-btn');
+                    delBtn.click(function () {
+                        $(this).closest('li').remove();
+                    })
+                }
+            }
+
+            //To do list
+
+            var list = $("#list");
+            var btnAdd = $("#btn-add");
+            var text = $("#input-text");
+            var count = 1;
+
+            //add item
+            function addItem(e) {
+                var textValue = text.val();
+                if (textValue == "") {
+                    alert("enter a valid item");
+                } else {
+                    var newListElement = $("<li>");
+                    newListElement.addClass("list-item");
+                    newListElement.append(document.createTextNode(textValue + " "));
+                    list.append(newListElement);
+                    var delBtn = $("<button>");
+                    delBtn.attr('id', "btn-" + count);
+                    delBtn.addClass('del-btn');
+                    var delIcon = $('<i>');
+                    delIcon.addClass('fa fa-trash');
+                    delBtn.append(delIcon);
+                    list.first().append(delBtn);
+                    newListElement.append(delBtn)
+                    text.val('');
+                    count = count + 1;
+
+                    //delete single item
+                    var delBtn = $('.del-btn');
+                    delBtn.click(function () {
+                        $(this).closest('li').remove();
+                    })
+                }
+
+            }
+            text.keyup(function (e) {
+                if (e.keyCode === 13) {
+                    addItem();
+                }
+            });
+            // ADD item code
+
+            btnAdd.click(addItem);
+
+            //update first item
+            var btnUpdate = $("#btn-update");
+            btnUpdate.click(function () {
+                if (text.val() == "") {
+                    alert("Enter updated value");
+                } else {
+                    $("#list").find(':first').text(text.val());
+                    var delBtn = $("<button>");
+                    delBtn.attr('id', "btn-1");//since it updated only first item
+                    delBtn.addClass('del-btn');
+                    var delIcon = $('<i>');
+                    delIcon.addClass('fa fa-trash');
+                    delBtn.append(delIcon);
+                    list.find(':first').append(delBtn);
+                    text.val("");
+                }
+            });
+
+            //remove first item
+            var btnRemove = $("#btn-remove");
+            btnRemove.click(function (e) {
+                if (list.length == 0) {
+                    alert("Add an item");
+                } else {
+                    list.find(':first').remove();
+                }
+            });
+
+            //deleting all items
+            var deleteAll = $('#btn-delete-all');
+            deleteAll.click(function(){
+                list.empty();
+            })
+        })
+    </script>
+</body>
+
+</html>

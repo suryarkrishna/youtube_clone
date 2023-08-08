@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Item Properties</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        #grid-container {
+            display: grid;
+            grid-template-areas: 
+            'header header header header header header'
+            'sidebar main main main main aside'
+            'footer footer footer footer footer footer' ;
+        }
+        #header {
+            background-color: aqua;
+            text-align: center;
+            grid-area: header;
+        }
+        #sidebar {
+            background-color: rgb(102, 82, 57);
+            grid-area: sidebar;
+        }
+        #main {
+            background-color: rgb(233, 146, 15);
+            grid-area: main;
+            height: 460px;
+
+        }
+        #aside {
+            background-color: cadetblue;
+            grid-area: aside;
+        }
+        #footer {
+            background-color: coral;
+            grid-area: footer;
+
+        }
+        @media (max-width: 900px){
+            #grid-container {
+            grid-template-areas: 
+            'header header header header header header'
+            'sidebar main main main main aside'
+            'footer footer footer footer footer footer' ;
+        }
+        }
+        @media (max-width: 400px){
+            #grid-container {
+            grid-template-areas: 
+            'header header header header header header'
+            'sidebar sidebar sidebar sidebar sidebar sidebar'
+            'main main main main main main'
+            'aside aside aside aside aside aside'
+            'footer footer footer footer footer footer' ;
+        }
+        }
+    </style>
+</head>
+<body>
+    <div id="grid-container">
+        <div id="header">Header</div>
+        <div id="sidebar">Menu</div>
+        <div id="main">Main</div>
+        <div id="aside">Right</div>
+        <div id="footer">Footer</div>
+    </div>
+</body>
+</html>
