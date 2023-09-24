@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript Playground</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <h2>Regular Expressions</h2>
+    <h5>regex101.com can be used to check our Regular Expressions</h5>
+    <ol>
+        <li>/pattern-string/flag 
+            <p>pattern-string is the string to be matched. flag indicates the additional conditional of global or insensitive.</p>
+            <em>eg: /pen/gi</em> 
+            <p>this matches the string <strong>pen</strong> globally i.e, matches all occurences both capital and small case. </p>
+        </li>
+        <li>Sets & Ranges
+            <p>Sets matches any of the values where as Range matches the range of values. Both are indicated using Square brackets.</p>
+            <em>eg: Set- /[ABC]ir/gi ; Range- /[A-Z]ir/gi</em> <p>Set matches for Air, Bir, Cir where as Range matches for Air, Bir, Cir.........,Zir</p>
+            <p>Range of 0 - 9 is written as /[0-9]/ or /[\d]/ </p>
+            <p>/[^0- 9]/ or /[\D]/- not numbers are selected</p>
+            <p>/[a-zA-Z]/ - all alphabets both capital and small case</p>
+            <p>/[a-zA-Z0-9]/ or /[\w]/ - selects all alphabets and numbers</p>
+            <p>/[\W]/ - selects non-alphabets and non-numbers</p>
+            <p>/[\s]/ - selects spaces</p>
+        </li>
+        <li>Quantifiers
+            <p>Quantifiers select a value multiple times. To define a quantifierm we add a value inside a curly braces after the set or range.</p>
+            <em>eg: /[\d]{3}/</em> 
+            <p>selects number with three digits</p>
+            <p>Range can also be defined for the quantifiers- /[\d]{2,4}/ - selects numbers with 2 , 3 and 4 digits.</p>
+            <p>/[\d]{1,}/ or /[\d]+/ - selects one or more digits</p>
+            <p>Regex for PAN- /^[a-zA-z]{5}[0-9]{4}[a-zA-Z]{1}$/</p>
+            <p>? -> {0,1} i.e, 0 or 1 occurences; * -> {0,} i.e, 0 or more occurences</p>
+        </li>
+        <li>Regex Groups
+            <ul>
+                <li>eg: phone number: /^[\d]{10}$/g </li>
+                <li>eg: phone number with +91 : /^(\+91)?[\d]{10}$/g</li>
+                <li>eg: url : /^www\.[\w]+\.(com|co|in|org)$/g</li>
+            </ul>
+        </li>
+    </ol>
+    <h4>Regular Expressions in Js</h4>
+    <p>We can use /pattern-string/flag or Inbuild Regular Expression class- new RegExp('pattern-string','flag')</p>
+   
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+h2{
+    color: blue;
+}
+body{
+    margin: 50px;
+    padding: 5px;
+}
+li {
+    font-weight: bold;
+}
+
+li p {
+    font-weight: lighter;
+}
