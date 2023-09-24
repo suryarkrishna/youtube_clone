@@ -72,6 +72,9 @@ a {
   .copyright {
     display: none !important;
   }
+   .search-bar {
+    width: 200px;
+  }
 }
 
 @media screen and (max-width: 600px) {
